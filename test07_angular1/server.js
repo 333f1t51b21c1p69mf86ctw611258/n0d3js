@@ -1,6 +1,8 @@
 // server.js
 
 // set up ========================
+var kue = require('kue');
+
 var express = require('express');
 
 // create our app w/ express
@@ -35,7 +37,11 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 app.use(methodOverride());
 
 ///// Routes
-require('./app/routes')(app);
+require('./app/routes')(app, kue);
+
+// start the UI
+kue.app.listen(3000);
+console.log('UI started on port 3000');
 
 // listen (start app with node server.js) ======================================
 app.listen(8080);

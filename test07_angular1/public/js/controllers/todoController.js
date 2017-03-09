@@ -1,7 +1,20 @@
-angular.module('todoController', [])
+angular.module('todoModule', [])
+	.controller('workLogController', ['$scope', '$http', 'WorkLogs', function ($scope, $http, WorkLogs) {
+		var obj = {
+			user: 'user_test',
+			page: 'index'
+		};
+
+		console.info(obj);
+
+		WorkLogs.register(obj)
+			.success(function (data) {
+				console.log(data);
+			});
+	}])
 
 	// inject the Todo service factory into our controller
-	.controller('mainController', function ($scope, $http, Todos) {
+	.controller('mainController', ['$scope', '$http', 'Todos', function ($scope, $http, Todos) {
 		$scope.formData = {};
 
 		// GET =====================================================================
@@ -21,9 +34,11 @@ angular.module('todoController', [])
 			// people can't just hold enter to keep adding the same to-do anymore
 			if (!$.isEmptyObject($scope.formData)) {
 
+				console.log('formData >>>');
+				console.info($scope.formData);
+
 				// call the create function from our service (returns a promise object)
 				Todos.create($scope.formData)
-
 				// if successful creation, call our get function to get all the new todos
 					.success(function (data) {
 						$scope.formData = {}; // clear the form so our user is ready to enter another
@@ -41,4 +56,4 @@ angular.module('todoController', [])
 					$scope.todos = data; // assign our new list of todos
 				});
 		};
-	});
+	}]);

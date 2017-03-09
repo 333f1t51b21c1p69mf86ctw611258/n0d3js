@@ -33,19 +33,22 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script><!-- load angular -->
 
-	<script src="js/controllers/main.js"></script>
-	<script src="js/services/todos.js"></script>
+	<script src="js/controllers/todoController.js"></script>
+	<script src="js/services/todoService.js"></script>
 	<script src="js/core.js"></script>
 
 </head>
 
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
-<body ng-controller="mainController">
-<div class="container">
+<body>
+<div ng-controller="workLogController">
+</div>
+<div class="container" ng-controller="mainController">
 
 	<!-- HEADER AND TODO COUNT -->
 	<div class="jumbotron text-center">
 		<h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
+		<p>Latest item is: {{}}</p>
 	</div>
 
 	<!-- TODO LIST -->
@@ -70,7 +73,15 @@
 
 					<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 					<input type="text" class="form-control input-lg text-center"
-						   placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
+						   placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text" />
+
+					<div style="margin-top: 10px;">
+						<input type="text"
+							   class="form-control input-lg text-center"
+							   placeholder="This is the place for description."
+							   ng-model="formData.description" />
+					</div>
+
 				</div>
 
 				<!-- createToDo() WILL CREATE NEW TODOS -->

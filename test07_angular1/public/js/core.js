@@ -1,1 +1,1 @@
-angular.module('henrikTodo', ['todoController', 'todoService']);
+angular.module('henrikTodo', ['todoModule', 'todoService']);
