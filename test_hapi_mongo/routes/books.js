@@ -21,6 +21,22 @@ exports.register = function (server, options, next) {
 
 	server.route({
 		method: 'GET',
+		path: '/',
+		handler: (request, reply) => {
+			reply('This is the root page');
+		}
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/test',
+		handler: (request, reply) => {
+			reply('test test test');
+		}
+	});
+
+	server.route({
+		method: 'GET',
 		path: '/books',
 		handler: function (request, reply) {
 

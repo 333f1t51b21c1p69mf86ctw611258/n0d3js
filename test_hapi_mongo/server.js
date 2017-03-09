@@ -10,7 +10,7 @@ server.connection({
 });
 
 // Connect to Database
-server.app.db = mongojs('test', ['books']);
+server.app.db = mongojs('test', ['books', 'library']);
 
 // Load plugins and start server
 server.register([
@@ -22,8 +22,14 @@ server.register([
 	}
 
 	// Start the server
-	server.start(function(err) {
-		console.log('Server running at: ', server.info.uri);
+	server.start(function (err) {
+		if (err) {
+			// Fancy error handling here
+			console.error('Error was handled!');
+			console.error(err);
+		}
+
+		console.log('Server running at: %s %d', server.info.uri, 12345);
 	});
 
 });
