@@ -1,47 +1,71 @@
 var Todo = require('./models/todoModel');
 var WorkLog = require('./models/workLogModel');
+var queue;
 
 module.exports = function (app, kue) {
-	var queue = kue.createQueue();
+	queue = kue.createQueue();
 
-	var email = queue.create('email', {
-		title: 'welcome email for tj'
-		, to: 'tj@learnboost.com'
-		, template: 'welcome-email'
-	}).save(function (err) {
-		if (!err) console.log(email.id);
+	queue.on('job enqueue', function(id, type){
+		console.log( 'Job %s got queued of type %s', id, type );
+
+	}).on('job complete', function(id, result){
+		kue.Job.get(id, function(err, job){
+			if (err) return;
+			job.remove(function(err){
+				if (err) throw err;
+				console.log('removed completed job #%d', job.id);
+			});
+		});
+	}).on( 'error', function( err ) {
+		console.log( 'Oops... ', err );
 	});
-
-	email.on('start', function () {
-		console.log('Start');
-	});
-
-	email.on('promotion', function () {
-		console.log('Promotion');
-	});
-
-	email.on('complete', function () {
-		console.log('Complete');
-	});
-
-	queue.process('email', function (job, done) {
-		console.log(job.data.to);
-
-		done();
-	});
-
 
 	app.post('/api/worklog/register', function (req, res) {
-		WorkLog.create({
+		var email = queue.create('email', {
+			title: 'Account renewal required',
+			to: 'tj@learnboost.com',
+			template: 'renewal-email',
 			user: req.body.user,
 			page: req.body.page
-		}, function (err, workLog) {
-			if (err) {
-				res.send(err);
-			}
+		}).delay(5000)
+			.priority('high')
+			.save();
 
-			res.send('OK');
+		email.on('start', function () {
+			console.log('start');
 		});
+
+		email.on('promotion', function () {
+			console.log('promotion');
+		});
+
+		email.on('complete', function (result) {
+			console.log('complete with result: ' + result);
+		});
+
+		queue.process('email', 1, function (job, done) {
+			console.log('### email: ' + job.data.to);
+
+			WorkLog.create({
+				user: job.data.user,
+				page: job.data.page
+			}, function (err, workLog) {
+				console.log('>>> workLog: ');
+				console.info(workLog);
+
+				// if (err) {
+				// 	res.send(err);
+				// }
+				//
+				// res.send('OK');
+			});
+
+			setTimeout(function () {
+				done();
+			}, Math.random() * 5000);
+		});
+
+
 	});
 
 	// Get all todos
