@@ -10,8 +10,12 @@
  */
 angular
   .module('test09YeomanAngular1App', [
+    'ngAnimate',
+    'ngCookies',
+    'ngResource',
     'ngRoute',
-    'ui.sortable'
+    'ngSanitize',
+    'ngTouch'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -24,11 +28,6 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
-      })
-      .when('/contact', {
-        templateUrl: 'views/contact.html',
-        controller: 'ContactCtrl',
-        controllerAs: 'contact'
       })
       .otherwise({
         redirectTo: '/'
