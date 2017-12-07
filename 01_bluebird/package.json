@@ -1,0 +1,15 @@
+{
+  "name": "01_bluebird",
+  "version": "1.0.0",
+  "description": "",
+  "main": "benchmark.js",
+  "scripts": {
+    "test": "node benchmark.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "needle": "^2.1.0"
+  }
+}
