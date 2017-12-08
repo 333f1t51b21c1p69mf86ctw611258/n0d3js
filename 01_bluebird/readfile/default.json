@@ -1,0 +1,48 @@
+{
+  "amqp": {
+    "url": "amqp://test:test@10.72.0.163:5672/dev",
+    "exchange": "dasan.acs.default.exchange",
+    "expiredTime": 150000,
+    "options": {
+
+    }
+  },
+  "redis": {
+    "host": "10.72.0.163",
+    "port": "6379"
+  },
+  "genie": {
+    "url": "http://10.72.0.164:7557",
+    "timeout": 3000
+  },
+  "watcher": {
+    "interval": 30000
+  },
+  "pageSize": 20,
+  "notificationUrl": "mongodb://10.72.0.158:27017/genieacs11",
+  "databaseUrl": "mongodb://10.72.0.158:27017/acs",
+  "mapperDB": "TaskMap_default",
+  "webHook": {
+    "jobGroups": [],
+    "tr069": []
+  },
+  "job": {
+    "delay": 60000,
+    "timeout": 3600000
+  },
+  "acsApi": {
+    "restBasedUrl": "http://localhost:9000/acs-api/1.0/",
+    "rmaApiUrl": "http://localhost:8686/api/jsonws"
+  },
+  "resource": {
+    "location": "./resource",
+    "serverUri": "http://localhost:9100"
+  },
+  "auth": {
+    "serverUri": "http://10.72.0.164:8001/"
+  },
+  "system": {
+    "user": "system"
+  },
+  "rmaRestApi": "http://10.72.0.124:8686/api/jsonws/dzs.rma-portlet.device"
+}
