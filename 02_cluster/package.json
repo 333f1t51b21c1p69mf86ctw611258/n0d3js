@@ -1,0 +1,16 @@
+{
+  "name": "02_cluster",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cluster.js",
+  "scripts": {
+    "test": "node cluster.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "cluster": "^0.7.7",
+    "os": "^0.1.1"
+  }
+}
